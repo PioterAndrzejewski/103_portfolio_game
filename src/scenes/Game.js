@@ -7,7 +7,7 @@ class Game extends Phaser.Scene {
   }
 
   preload() {
-    this.load.tilemapTiledJSON("level-1", "assets/tilemaps/level-1.json");
+    this.load.tilemapTiledJSON("level-1", "assets/tilesets/level-1.json");
     this.load.image("world-1-sheet", "assets/tilesets/world-1.png");
 
     this.load.spritesheet("hero-idle-sheet", "assets/hero/idle.png", {
@@ -85,6 +85,14 @@ class Game extends Phaser.Scene {
     this.addMap();
 
     this.hero = new Hero(this, 250, 160);
+
+    this.cameras.main.setBounds(
+      0,
+      0,
+      this.map.widthInPixels,
+      this.map.heightInPixels,
+    );
+    this.cameras.main.startFollow(this.hero);
   }
 
   addMap() {
@@ -94,6 +102,14 @@ class Game extends Phaser.Scene {
     const groundTiles = this.map.addTilesetImage("world-1", "world-1-sheet");
 
     this.map.createStaticLayer("ground", groundTiles);
+
+    this.physics.world.setBounds(
+      0,
+      0,
+      this.map.widthInPixels,
+      this.map.heightInPixels,
+    );
+    this.physics.world.setBoundsCollision(true, true, false, true);
   }
 
   update(time, delta) {}
