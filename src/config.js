@@ -10,9 +10,12 @@ export default {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-  // render: {
-  //   pixelArt: true,
-  // },
+  render: {
+    pixelArt: true,
+    antialias: false,
+    autoRound: true,
+    roundPixels: true,
+  },
   physics: {
     default: "arcade",
     arcade: {

@@ -8,7 +8,12 @@ class Game extends Phaser.Scene {
 
   preload() {
     this.load.tilemapTiledJSON("level-1", "assets/tilesets/level-1.json");
-    this.load.image("world-1-sheet", "assets/tilesets/world-1.png");
+    this.load.spritesheet("world-1-sheet", "assets/tilesets/world-1.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+      margin: 1,
+      spacing: 2,
+    });
     this.load.image("cave-sheet", "assets/tilesets/bg-cave.png");
     this.load.image("project-sheet", "assets/tilesets/project-sheet.png");
     this.load.image("bg-sheet", "assets/tilesets/bg-sheet.png");
@@ -96,7 +101,7 @@ class Game extends Phaser.Scene {
       this.map.widthInPixels - 10,
       this.map.heightInPixels,
     );
-    this.cameras.main.startFollow(this.hero).setFollowOffset(0, 80);
+    this.cameras.main.startFollow(this.hero).setFollowOffset(0, 70);
   }
 
   addHero() {
@@ -132,7 +137,6 @@ class Game extends Phaser.Scene {
 
     bgClouds.setScrollFactor(0.8);
     bgLayer.setScrollFactor(0.9);
-    projectLayer.setScrollFactor(1.01);
     groundLayer.setCollision([1, 2], true);
 
     this.physics.world.setBounds(
@@ -142,6 +146,28 @@ class Game extends Phaser.Scene {
       this.map.heightInPixels,
     );
     this.physics.world.setBoundsCollision(true, true, false, true);
+
+    this.spikeGroup = this.physics.add.group({
+      immovable: true,
+      allowGravity: false,
+    });
+
+    const objectLayer = this.map
+      .getObjectLayer("Objects")
+      .objects.forEach((obj) => {
+        if (obj.gid === 7) {
+          const newSpike = this.spikeGroup.create(
+            obj.x,
+            obj.y,
+            "world-1-sheet",
+            obj.gid - 1,
+          );
+          newSpike.setOrigin(0, 1);
+          newSpike.setSize(obj.width - 10, obj.height - 10);
+        }
+        if (obj.type === "link") {
+        }
+      });
   }
 
   update(time, delta) {}
