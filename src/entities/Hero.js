@@ -13,13 +13,61 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.body.setCollideWorldBounds(true);
     this.body.setSize(12, 40);
     this.body.setOffset(12, 23);
-    this.body.setMaxVelocity(200, 350);
+    this.body.setMaxVelocity(250, 400);
     this.body.setDragX(750);
 
     this.keys = scene.cursorKeys;
     this.input = {};
 
+    this.setupAnimations();
     this.setupMovement();
+  }
+
+  setupAnimations() {
+    this.animState = new StateMachine({
+      init: "idle",
+      transitions: [
+        { name: "idle", from: ["falling", "running", "pivoting"], to: "idle" },
+        { name: "run", from: ["falling", "idle", "pivoting"], to: "running" },
+        { name: "pivot", from: ["falling", "running"], to: "pivoting" },
+        { name: "jump", from: ["idle", "running", "pivoting"], to: "jumping" },
+        { name: "flip", from: ["jumping", "falling"], to: "flipping" },
+        { name: "fall", from: "*", to: "falling" },
+      ],
+      methods: {
+        onEnterState: (lifecycle) => {
+          this.anims.play("hero-" + lifecycle.to);
+          console.log(lifecycle);
+        },
+      },
+    });
+
+    this.animPredicates = {
+      idle: () => {
+        return this.body.onFloor() && this.body.velocity.x === 0;
+      },
+      run: () => {
+        return (
+          this.body.onFloor() &&
+          Math.sign(this.body.velocity.x) === (this.flipX ? -1 : 1)
+        );
+      },
+      pivot: () => {
+        return (
+          this.body.onFloor() &&
+          Math.sign(this.body.velocity.x) === (this.flipX ? 1 : -1)
+        );
+      },
+      jump: () => {
+        return this.body.velocity.y < 0;
+      },
+      flip: () => {
+        return this.body.velocity.y < 0 && this.moveState.is("flipping");
+      },
+      fall: () => {
+        return this.body.velocity.y > 0;
+      },
+    };
   }
 
   setupMovement() {
@@ -31,7 +79,7 @@ class Hero extends Phaser.GameObjects.Sprite {
         { name: "fall", from: "standing", to: "falling" },
         {
           name: "touchdown",
-          from: ["falling", "flipping", "jumping"],
+          from: ["jumping", "flipping", "falling"],
           to: "standing",
         },
       ],
@@ -42,11 +90,9 @@ class Hero extends Phaser.GameObjects.Sprite {
         onFlip: () => {
           this.body.setVelocityY(-300);
         },
-        onEnterState: (lifecycle) => {
-          console.log(lifecycle);
-        },
       },
     });
+
     this.movePredicates = {
       jump: () => {
         return this.input.didPressJump;
@@ -70,18 +116,18 @@ class Hero extends Phaser.GameObjects.Sprite {
 
     if (this.keys.left.isDown) {
       this.body.setAccelerationX(-1000);
-      this.body.setOffset(6, 23);
       this.setFlipX(true);
+      this.body.offset.x = 8;
     } else if (this.keys.right.isDown) {
       this.body.setAccelerationX(1000);
-      this.body.setOffset(12, 23);
       this.setFlipX(false);
+      this.body.offset.x = 12;
     } else {
-      this.body.setAcceleration(0);
+      this.body.setAccelerationX(0);
     }
 
     if (this.moveState.is("jumping") || this.moveState.is("flipping")) {
-      if (!this.keys.up.isDown && this.body.velocity.y < -250) {
+      if (!this.keys.up.isDown && this.body.velocity.y < -150) {
         this.body.setVelocityY(-150);
       }
     }
@@ -89,6 +135,13 @@ class Hero extends Phaser.GameObjects.Sprite {
     for (const t of this.moveState.transitions()) {
       if (t in this.movePredicates && this.movePredicates[t]()) {
         this.moveState[t]();
+        break;
+      }
+    }
+
+    for (const t of this.animState.transitions()) {
+      if (t in this.animPredicates && this.animPredicates[t]()) {
+        this.animState[t]();
         break;
       }
     }
