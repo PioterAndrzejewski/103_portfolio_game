@@ -1,0 +1,42 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "Wszystkie pliki (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "#MrCutout.com - tree-0251-small": {
+            "dynamicWrapping": true
+        },
+        "#graphics-set": {
+            "dynamicWrapping": true
+        },
+        "#miniatura": {
+            "dynamicWrapping": false
+        },
+        "#world-1": {
+            "dynamicWrapping": false
+        }
+    },
+    "last.exportedFilePath": "H:/programowanie/103_portfolio_game/assets/tilemaps",
+    "last.imagePath": "H:/programowanie/103_portfolio_game/assets/level",
+    "map.height": 14,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.width": 96,
+    "openFiles": [
+    ],
+    "project": "project.tiled-project",
+    "recentFiles": [
+    ],
+    "tileset.embedInMap": true,
+    "tileset.margin": 1,
+    "tileset.spacing": 2,
+    "tileset.type": 1
+}
