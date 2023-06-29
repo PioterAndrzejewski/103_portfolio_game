@@ -9,6 +9,10 @@ class Game extends Phaser.Scene {
   preload() {
     this.load.tilemapTiledJSON("level-1", "assets/tilesets/level-1.json");
     this.load.image("world-1-sheet", "assets/tilesets/world-1.png");
+    this.load.image("cave-sheet", "assets/tilesets/bg-cave.png");
+    this.load.image("project-sheet", "assets/tilesets/project-sheet.png");
+    this.load.image("bg-sheet", "assets/tilesets/bg-sheet.png");
+    this.load.image("cloud-sheet", "assets/tilesets/cloud.png");
 
     this.load.spritesheet("hero-idle-sheet", "assets/hero/idle.png", {
       frameWidth: 32,
@@ -84,15 +88,24 @@ class Game extends Phaser.Scene {
 
     this.addMap();
 
-    this.hero = new Hero(this, 250, 160);
+    this.addHero();
 
     this.cameras.main.setBounds(
       0,
       0,
-      this.map.widthInPixels,
+      this.map.widthInPixels - 10,
       this.map.heightInPixels,
     );
-    this.cameras.main.startFollow(this.hero);
+    this.cameras.main.startFollow(this.hero).setFollowOffset(0, 80);
+  }
+
+  addHero() {
+    this.hero = new Hero(this, 420, 100);
+
+    this.physics.add.collider(
+      this.hero,
+      this.map.getLayer("Ground").tilemapLayer,
+    );
   }
 
   addMap() {
@@ -100,8 +113,27 @@ class Game extends Phaser.Scene {
       key: "level-1",
     });
     const groundTiles = this.map.addTilesetImage("world-1", "world-1-sheet");
+    const caveTiles = this.map.addTilesetImage("bg-cave", "cave-sheet");
+    const projectTiles = this.map.addTilesetImage("projects", "project-sheet");
+    const bgTiles = this.map.addTilesetImage("bg-sheet", "bg-sheet");
+    const cloudTiles = this.map.addTilesetImage(
+      "Background-cloud",
+      "cloud-sheet",
+    );
 
-    this.map.createStaticLayer("ground", groundTiles);
+    const bgClouds = this.map.createStaticLayer("Background-cloud", cloudTiles);
+    const bgLayer = this.map.createStaticLayer("Background", bgTiles);
+    const caveLayer = this.map.createStaticLayer("Background-cave", caveTiles);
+    const groundLayer = this.map.createStaticLayer("Ground", groundTiles);
+    const projectLayer = this.map.createStaticLayer(
+      "Background-projects",
+      projectTiles,
+    );
+
+    bgClouds.setScrollFactor(0.8);
+    bgLayer.setScrollFactor(0.9);
+    projectLayer.setScrollFactor(1.01);
+    groundLayer.setCollision([1, 2], true);
 
     this.physics.world.setBounds(
       0,

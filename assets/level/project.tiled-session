@@ -3,8 +3,9 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "2.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "file.lastUsedOpenFilter": "Wszystkie pliki (*)",
     "fileStates": {
@@ -22,21 +23,55 @@
         },
         "#world-1": {
             "dynamicWrapping": false
+        },
+        "2.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 700,
+                "y": 324
+            }
+        },
+        "2.tmx#graphics-set": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "2.tmx#miniatura": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "2.tmx#project-sheet": {
+            "scaleInEditor": 1
+        },
+        "2.tmx#projects": {
+            "scaleInEditor": 1
+        },
+        "2.tmx#world-1": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "bez nazwy.tmx#graphics-set": {
+            "dynamicWrapping": true
+        },
+        "bez nazwy.tmx#world-1": {
+            "dynamicWrapping": false
         }
     },
-    "last.exportedFilePath": "H:/programowanie/103_portfolio_game/assets/tilemaps",
-    "last.imagePath": "H:/programowanie/103_portfolio_game/assets/level",
+    "last.exportedFilePath": "H:/programowanie/103_portfolio_game/assets/tilesets",
+    "last.imagePath": "H:/programowanie/103_portfolio_game/assets/tilesets",
     "map.height": 14,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "tmx",
     "map.width": 96,
     "openFiles": [
+        "2.tmx"
     ],
     "project": "project.tiled-project",
     "recentFiles": [
+        "2.tmx"
     ],
     "tileset.embedInMap": true,
-    "tileset.margin": 1,
-    "tileset.spacing": 2,
-    "tileset.type": 1
+    "tileset.margin": 0,
+    "tileset.spacing": 0,
+    "tileset.type": 0
 }
