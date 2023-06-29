@@ -48,6 +48,11 @@ class Game extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 64,
     });
+
+    this.load.spritesheet("hero-die-sheet", "assets/hero/bonk.png", {
+      frameWidth: 32,
+      frameHeight: 64,
+    });
   }
 
   create(data) {
@@ -91,8 +96,12 @@ class Game extends Phaser.Scene {
       repeat: -1,
     });
 
-    this.addMap();
+    this.anims.create({
+      key: "hero-dead",
+      frames: this.anims.generateFrameNumbers("hero-die-sheet"),
+    });
 
+    this.addMap();
     this.addHero();
 
     this.cameras.main.setBounds(
@@ -102,6 +111,28 @@ class Game extends Phaser.Scene {
       this.map.heightInPixels,
     );
     this.cameras.main.startFollow(this.hero).setFollowOffset(0, 70);
+
+    this.physics.add.collider(
+      this.hero,
+      this.map.getLayer("Background-projects").tilemapLayer,
+    );
+
+    this.linkGroup.forEach((obj) => {
+      this.physics.add.existing(obj, true);
+      this.physics.add.collider(this.hero, obj, () => this.pauseGame(obj));
+    });
+  }
+
+  pauseGame(obj) {
+    document.dispatchEvent(
+      new CustomEvent("openModal", { detail: obj.linkTo }),
+    );
+    document.addEventListener("canPause", () => {
+      this.scene.pause();
+    });
+    document.addEventListener("resume", () => {
+      this.scene.resume();
+    });
   }
 
   addHero() {
@@ -137,6 +168,7 @@ class Game extends Phaser.Scene {
 
     bgClouds.setScrollFactor(0.8);
     bgLayer.setScrollFactor(0.9);
+
     groundLayer.setCollision([1, 2], true);
 
     this.physics.world.setBounds(
@@ -152,6 +184,8 @@ class Game extends Phaser.Scene {
       allowGravity: false,
     });
 
+    this.linkGroup = [];
+
     const objectLayer = this.map
       .getObjectLayer("Objects")
       .objects.forEach((obj) => {
@@ -166,6 +200,16 @@ class Game extends Phaser.Scene {
           newSpike.setSize(obj.width - 10, obj.height - 10);
         }
         if (obj.type === "link") {
+          const linkObject = this.add.rectangle(
+            obj.x + obj.width / 2,
+            obj.y + obj.height / 2,
+            obj.width,
+            obj.height,
+            "rgba(0, 0, 0, 0.1)",
+          );
+          linkObject.setAlpha(0.01);
+          linkObject.linkTo = obj.name;
+          this.linkGroup.push(linkObject);
         }
       });
   }
