@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import StateMachine from "javascript-state-machine";
 
 class Hero extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
@@ -16,10 +17,56 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.body.setDragX(750);
 
     this.keys = scene.cursorKeys;
+    this.input = {};
+
+    this.setupMovement();
+  }
+
+  setupMovement() {
+    this.moveState = new StateMachine({
+      init: "standing",
+      transitions: [
+        { name: "jump", from: "standing", to: "jumping" },
+        { name: "flip", from: "jumping", to: "flipping" },
+        { name: "fall", from: "standing", to: "falling" },
+        {
+          name: "touchdown",
+          from: ["falling", "flipping", "jumping"],
+          to: "standing",
+        },
+      ],
+      methods: {
+        onJump: () => {
+          this.body.setVelocityY(-400);
+        },
+        onFlip: () => {
+          this.body.setVelocityY(-300);
+        },
+        onEnterState: (lifecycle) => {
+          console.log(lifecycle);
+        },
+      },
+    });
+    this.movePredicates = {
+      jump: () => {
+        return this.input.didPressJump;
+      },
+      flip: () => {
+        return this.input.didPressJump;
+      },
+      fall: () => {
+        return !this.body.onFloor();
+      },
+      touchdown: () => {
+        return this.body.onFloor();
+      },
+    };
   }
 
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
+
+    this.input.didPressJump = Phaser.Input.Keyboard.JustDown(this.keys.up);
 
     if (this.keys.left.isDown) {
       this.body.setAccelerationX(-1000);
@@ -33,24 +80,17 @@ class Hero extends Phaser.GameObjects.Sprite {
       this.body.setAcceleration(0);
     }
 
-    const didPressJump = Phaser.Input.Keyboard.JustDown(this.keys.up);
-
-    if (didPressJump) {
-      if (this.body.onFloor()) {
-        this.canDoubleJump = true;
-        this.body.setVelocityY(-450);
-      } else if (this.canDoubleJump) {
-        this.body.setVelocityY(-250);
-        this.canDoubleJump = false;
+    if (this.moveState.is("jumping") || this.moveState.is("flipping")) {
+      if (!this.keys.up.isDown && this.body.velocity.y < -250) {
+        this.body.setVelocityY(-150);
       }
     }
 
-    if (this.body.onFloor) {
-      this.canDoubleJump = false;
-    }
-
-    if (!this.keys.up.isDown && this.body.velocity.y < -250) {
-      this.body.setVelocityY(-150);
+    for (const t of this.moveState.transitions()) {
+      if (t in this.movePredicates && this.movePredicates[t]()) {
+        this.moveState[t]();
+        break;
+      }
     }
   }
 }
