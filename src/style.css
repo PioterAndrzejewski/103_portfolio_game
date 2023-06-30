@@ -20,7 +20,14 @@ a {
   color: #f4ece7;
 }
 
+@media (max-width: 640px) {
+  .modal {
+    padding: 20px;
+  }
+}
+
 .modal h2 {
+  margin: 0;
   font-size: 48px;
   font-family: "Josefin Sans", sans-serif;
   font-weight: 100;
@@ -28,7 +35,12 @@ a {
   letter-spacing: 0.125em;
   text-align: center;
   text-transform: uppercase;
-  line-height: 1.25;
+}
+
+@media (max-width: 640px) {
+  .modal h2 {
+    font-size: 32px;
+  }
 }
 
 .modal ul {
@@ -38,15 +50,27 @@ a {
 .modal li {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 40px 0;
   list-style: none;
+}
+
+@media (max-width: 640px) {
+  li {
+    border-radius: 3px;
+  }
 }
 
 .modal img {
   margin: 0 auto;
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
   height: auto;
+}
+
+@media (max-width: 640px) {
+  .modal img {
+    max-width: 300px;
+  }
 }
 
 .modal p {
@@ -57,10 +81,23 @@ a {
   color: #f4ece7;
 }
 
+@media (max-width: 640px) {
+  .modal p {
+    padding: 0 40px;
+  }
+}
+
 .modal footer {
   display: flex;
   justify-content: space-between;
   padding: 0 80px;
+}
+
+@media (max-width: 640px) {
+  .modal footer {
+    flex-direction: column;
+    padding: 0 40px;
+  }
 }
 
 .modal a,
@@ -91,11 +128,4 @@ a {
 
 .modal span {
   font-size: 12px;
-}
-
-@media (max-width: 640px) {
-  li {
-    min-width: 200px;
-    border-radius: 3px;
-  }
 }
