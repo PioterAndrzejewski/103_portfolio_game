@@ -53,6 +53,8 @@ class Game extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 64,
     });
+
+    this.load.css("style", "./style.css");
   }
 
   create(data) {
