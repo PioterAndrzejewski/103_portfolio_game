@@ -7,6 +7,18 @@ class Game extends Phaser.Scene {
   }
 
   preload() {
+    this.load.tilemapTiledJSON("level-1", "assets/tilesets/level-1.json");
+    this.load.spritesheet("world-1-sheet", "assets/tilesets/world-1.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+      margin: 1,
+      spacing: 2,
+    });
+    this.load.image("cave-sheet", "assets/tilesets/bg-cave.png");
+    this.load.image("project-sheet", "assets/tilesets/project-sheet.png");
+    this.load.image("bg-sheet", "assets/tilesets/bg-sheet.png");
+    this.load.image("cloud-sheet", "assets/tilesets/cloud.png");
+
     this.load.spritesheet("hero-idle-sheet", "assets/hero/idle.png", {
       frameWidth: 32,
       frameHeight: 64,
@@ -36,6 +48,13 @@ class Game extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 64,
     });
+
+    this.load.spritesheet("hero-die-sheet", "assets/hero/bonk.png", {
+      frameWidth: 32,
+      frameHeight: 64,
+    });
+
+    this.load.css("style", "./style.css");
   }
 
   create(data) {
@@ -79,11 +98,122 @@ class Game extends Phaser.Scene {
       repeat: -1,
     });
 
-    this.hero = new Hero(this, 250, 160);
+    this.anims.create({
+      key: "hero-dead",
+      frames: this.anims.generateFrameNumbers("hero-die-sheet"),
+    });
 
-    const platform = this.add.rectangle(220, 240, 260, 10, 0x4bcb7c);
-    this.physics.add.existing(platform, true);
-    this.physics.add.collider(this.hero, platform);
+    this.addMap();
+    this.addHero();
+
+    this.cameras.main.setBounds(
+      0,
+      0,
+      this.map.widthInPixels - 10,
+      this.map.heightInPixels,
+    );
+    this.cameras.main.startFollow(this.hero).setFollowOffset(0, 70);
+
+    this.physics.add.collider(
+      this.hero,
+      this.map.getLayer("Background-projects").tilemapLayer,
+    );
+
+    this.linkGroup.forEach((obj) => {
+      this.physics.add.existing(obj, true);
+      this.physics.add.collider(this.hero, obj, () => this.pauseGame(obj));
+    });
+  }
+
+  pauseGame(obj) {
+    document.dispatchEvent(
+      new CustomEvent("openModal", { detail: obj.linkTo }),
+    );
+    document.addEventListener("canPause", () => {
+      this.scene.pause();
+    });
+    document.addEventListener("resume", () => {
+      this.scene.resume();
+    });
+  }
+
+  addHero() {
+    this.hero = new Hero(this, 420, 100);
+
+    this.physics.add.collider(
+      this.hero,
+      this.map.getLayer("Ground").tilemapLayer,
+    );
+  }
+
+  addMap() {
+    this.map = this.make.tilemap({
+      key: "level-1",
+    });
+    const groundTiles = this.map.addTilesetImage("world-1", "world-1-sheet");
+    const caveTiles = this.map.addTilesetImage("bg-cave", "cave-sheet");
+    const projectTiles = this.map.addTilesetImage("projects", "project-sheet");
+    const bgTiles = this.map.addTilesetImage("bg-sheet", "bg-sheet");
+    const cloudTiles = this.map.addTilesetImage(
+      "Background-cloud",
+      "cloud-sheet",
+    );
+
+    const bgClouds = this.map.createStaticLayer("Background-cloud", cloudTiles);
+    const bgLayer = this.map.createStaticLayer("Background", bgTiles);
+    const caveLayer = this.map.createStaticLayer("Background-cave", caveTiles);
+    const groundLayer = this.map.createStaticLayer("Ground", groundTiles);
+    const projectLayer = this.map.createStaticLayer(
+      "Background-projects",
+      projectTiles,
+    );
+
+    bgClouds.setScrollFactor(0.8);
+    bgLayer.setScrollFactor(0.9);
+
+    groundLayer.setCollision([1, 2], true);
+
+    this.physics.world.setBounds(
+      0,
+      0,
+      this.map.widthInPixels,
+      this.map.heightInPixels,
+    );
+    this.physics.world.setBoundsCollision(true, true, false, true);
+
+    this.spikeGroup = this.physics.add.group({
+      immovable: true,
+      allowGravity: false,
+    });
+
+    this.linkGroup = [];
+
+    const objectLayer = this.map
+      .getObjectLayer("Objects")
+      .objects.forEach((obj) => {
+        if (obj.gid === 7) {
+          const newSpike = this.spikeGroup.create(
+            obj.x,
+            obj.y,
+            "world-1-sheet",
+            obj.gid - 1,
+          );
+          newSpike.setOrigin(0, 1);
+          newSpike.setSize(obj.width - 10, obj.height - 10);
+        }
+        if (obj.type === "link") {
+          const linkObject = this.add.rectangle(
+            obj.x + obj.width / 2,
+            obj.y + obj.height / 2,
+            obj.width,
+            obj.height,
+            "rgba(0, 0, 0, 0.1)",
+          );
+          linkObject.setAlpha(0.01);
+          linkObject.linkTo = obj.name;
+          this.linkGroup.push(linkObject);
+        }
+      });
   }
 
   update(time, delta) {}
