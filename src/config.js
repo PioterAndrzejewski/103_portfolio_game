@@ -6,13 +6,13 @@ export default {
   backgroundColor: "#dae6ed",
   scale: {
     width: 1200,
-    height: 600,
+    height: 550,
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   render: {
     pixelArt: true,
-    antialias: false,
+    antialias: true,
     autoRound: true,
     roundPixels: true,
   },

@@ -116,7 +116,6 @@ class Game extends Phaser.Scene {
       this.map.widthInPixels - 10,
       this.map.heightInPixels,
     );
-    this.cameras.main.startFollow(this.hero).setFollowOffset(0, 70);
 
     this.physics.add.collider(
       this.hero,
@@ -131,11 +130,11 @@ class Game extends Phaser.Scene {
     this.joyStick = this.plugins
       .get("rexvirtualjoystickplugin")
       .add(this, {
-        x: 150,
+        x: 250,
         y: 450,
         radius: 150,
-        base: this.add.circle(0, 0, 120, 0x888888),
-        thumb: this.add.circle(0, 0, 70, 0xcccccc),
+        base: this.add.circle(0, 0, 70, 0x888888),
+        thumb: this.add.circle(0, 0, 40, 0xcccccc),
         dir: "8dir",
         enable: true,
       })
@@ -144,6 +143,10 @@ class Game extends Phaser.Scene {
     this.joyStick.base.setAlpha(0.5);
     this.joyStick.thumb.setAlpha(0.5);
     this.dumpJoyStickState();
+
+    this.cameras.main.startFollow(this.hero);
+    this.cameras.main.setFollowOffset(0, 100);
+    this.cameras.main.setZoom(1.1);
   }
 
   dumpJoyStickState() {
