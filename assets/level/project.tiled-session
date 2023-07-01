@@ -25,11 +25,11 @@
             "dynamicWrapping": false
         },
         "2.tmx": {
-            "scale": 0.33,
-            "selectedLayer": 5,
+            "scale": 0.75,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 1587.8787878787878,
-                "y": 427.27272727272737
+                "x": 3278.6666666666665,
+                "y": 493.33333333333337
             }
         },
         "2.tmx#Background-cloud": {
