@@ -128,24 +128,22 @@ class Game extends Phaser.Scene {
       this.physics.add.collider(this.hero, obj, () => this.pauseGame(obj));
     });
 
-    if (window.innerWidth < 1280) {
-      this.joyStick = this.plugins
-        .get("rexvirtualjoystickplugin")
-        .add(this, {
-          x: 120,
-          y: 450,
-          radius: 100,
-          base: this.add.circle(0, 0, 100, 0x888888),
-          thumb: this.add.circle(0, 0, 50, 0xcccccc),
-          dir: "8dir",
-          enable: true,
-        })
-        .on("update", this.dumpJoyStickState, this);
+    this.joyStick = this.plugins
+      .get("rexvirtualjoystickplugin")
+      .add(this, {
+        x: 120,
+        y: 450,
+        radius: 100,
+        base: this.add.circle(0, 0, 100, 0x888888),
+        thumb: this.add.circle(0, 0, 50, 0xcccccc),
+        dir: "8dir",
+        enable: true,
+      })
+      .on("update", this.dumpJoyStickState, this);
 
-      this.joyStick.base.setAlpha(0.5);
-      this.joyStick.thumb.setAlpha(0.5);
-      this.dumpJoyStickState();
-    }
+    this.joyStick.base.setAlpha(0.5);
+    this.joyStick.thumb.setAlpha(0.5);
+    this.dumpJoyStickState();
   }
 
   dumpJoyStickState() {
