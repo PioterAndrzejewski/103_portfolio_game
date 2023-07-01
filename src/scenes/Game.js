@@ -142,6 +142,8 @@ class Game extends Phaser.Scene {
         })
         .on("update", this.dumpJoyStickState, this);
 
+      this.joyStick.base.setAlpha(0.5);
+      this.joyStick.thumb.setAlpha(0.5);
       this.dumpJoyStickState();
     }
   }
