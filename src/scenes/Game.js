@@ -55,6 +55,10 @@ class Game extends Phaser.Scene {
     });
 
     this.load.css("style", "./style.css");
+
+    const joyUrl =
+      "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js";
+    this.load.plugin("rexvirtualjoystickplugin", joyUrl, true);
   }
 
   create(data) {
@@ -123,6 +127,47 @@ class Game extends Phaser.Scene {
       this.physics.add.existing(obj, true);
       this.physics.add.collider(this.hero, obj, () => this.pauseGame(obj));
     });
+
+    if (window.innerWidth < 1280) {
+      this.joyStick = this.plugins
+        .get("rexvirtualjoystickplugin")
+        .add(this, {
+          x: 120,
+          y: 450,
+          radius: 100,
+          base: this.add.circle(0, 0, 100, 0x888888),
+          thumb: this.add.circle(0, 0, 50, 0xcccccc),
+          dir: "8dir",
+          enable: true,
+        })
+        .on("update", this.dumpJoyStickState, this);
+
+      this.joyStick.base.setAlpha(0.5);
+      this.joyStick.thumb.setAlpha(0.5);
+      this.dumpJoyStickState();
+    }
+  }
+
+  dumpJoyStickState() {
+    var cursorKeys = this.joyStick.createCursorKeys();
+
+    if (cursorKeys.left.isDown) {
+      this.hero.keys.left.isDown = true;
+    } else {
+      this.hero.keys.left.isDown = false;
+    }
+
+    if (cursorKeys.right.isDown) {
+      this.hero.keys.right.isDown = true;
+    } else {
+      this.hero.keys.right.isDown = false;
+    }
+
+    if (cursorKeys.up.isDown) {
+      this.hero.keys.up.isDown = true;
+    } else {
+      this.hero.keys.up.isDown = false;
+    }
   }
 
   pauseGame(obj) {
