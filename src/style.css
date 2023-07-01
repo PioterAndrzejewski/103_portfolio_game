@@ -48,6 +48,13 @@ dialog {
   }
 }
 
+@media (max-height: 425px) and (orientation: landscape) {
+  .modal {
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+  }
+}
+
 .modal h2 {
   margin: 0;
   font-size: 44px;
@@ -74,6 +81,17 @@ dialog {
   }
 }
 
+@media (max-height: 425px) and (orientation: landscape) {
+  .modal h2 {
+    font-size: 18px;
+  }
+}
+
+.modal .gallery {
+  display: flex;
+  justify-content: center;
+}
+
 @media (max-width: 1024px) and (orientation: landscape) {
   .modal .gallery {
     grid-area: img;
@@ -97,8 +115,8 @@ dialog {
 
 @media (max-width: 1024px) and (orientation: landscape) {
   .modal img {
-    max-height: 50vh;
-    width: auto;
+    max-width: 100%;
+    height: auto;
   }
 }
 
@@ -128,6 +146,12 @@ dialog {
   .modal p {
     padding: 0 20px;
     font-size: 14px;
+  }
+}
+
+@media (max-height: 425px) and (orientation: landscape) {
+  .modal p {
+    font-size: 13px;
   }
 }
 
