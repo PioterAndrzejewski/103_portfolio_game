@@ -131,11 +131,11 @@ class Game extends Phaser.Scene {
     this.joyStick = this.plugins
       .get("rexvirtualjoystickplugin")
       .add(this, {
-        x: 120,
+        x: 150,
         y: 450,
-        radius: 100,
-        base: this.add.circle(0, 0, 100, 0x888888),
-        thumb: this.add.circle(0, 0, 50, 0xcccccc),
+        radius: 150,
+        base: this.add.circle(0, 0, 120, 0x888888),
+        thumb: this.add.circle(0, 0, 70, 0xcccccc),
         dir: "8dir",
         enable: true,
       })
@@ -179,11 +179,21 @@ class Game extends Phaser.Scene {
       this.hero.keys.right.isDown = false;
     });
     document.addEventListener("resume", () => {
-      this.scene.resume();
-      this.hero.keys.up.isDown = false;
-      this.hero.keys.left.isDown = false;
-      this.hero.keys.right.isDown = false;
+      this.resumeGame();
     });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        this.resumeGame();
+      }
+    });
+  }
+
+  resumeGame() {
+    this.scene.resume();
+    this.hero.keys.up.isDown = false;
+    this.hero.keys.left.isDown = false;
+    this.hero.keys.right.isDown = false;
   }
 
   addHero() {

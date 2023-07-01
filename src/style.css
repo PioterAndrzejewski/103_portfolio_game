@@ -18,15 +18,14 @@ dialog {
 
 @media (max-width: 1024px) and (orientation: landscape) {
   dialog {
-    max-width: 90vw;
-    max-height: 95vh;
+    max-width: 95vw;
   }
 }
 
 .modal {
   padding: 40px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   box-shadow: 2px 2px 8px #444444;
   background-color: #4d4641;
   font-family: "Josefin Sans", sans-serif;
@@ -43,9 +42,9 @@ dialog {
   .modal {
     display: grid;
     grid-template-areas: "name description" "img description" "buttons buttons";
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 15vh 60vh 15vh;
-    padding: 10px;
+    grid-template-columns: 3fr 2fr;
+    grid-template-rows: 1fr 5fr 1fr;
+    padding: 20px;
   }
 }
 
@@ -62,40 +61,24 @@ dialog {
 
 @media (max-width: 640px) {
   .modal h2 {
-    font-size: 24px;
+    font-size: 22px;
   }
 }
 
 @media (max-width: 1024px) and (orientation: landscape) {
   .modal h2 {
-    font-size: 36px;
+    font-size: 24px;
     grid-area: name;
+    align-self: center;
+    justify-self: center;
   }
-}
-
-.modal ul {
-  padding-inline-start: 0;
 }
 
 @media (max-width: 1024px) and (orientation: landscape) {
-  .modal ul {
+  .modal .gallery {
     grid-area: img;
-    max-width: 40vw;
     justify-self: center;
     align-self: center;
-  }
-}
-
-.modal li {
-  display: flex;
-  justify-content: center;
-  margin: 40px 0;
-  list-style: none;
-}
-
-@media (max-width: 640px) {
-  li {
-    border-radius: 3px;
   }
 }
 
@@ -113,8 +96,15 @@ dialog {
 }
 
 @media (max-width: 1024px) and (orientation: landscape) {
+  .modal img {
+    max-height: 50vh;
+    width: auto;
+  }
+}
+
+@media (max-width: 1024px) and (orientation: landscape) {
   .modal .description {
-    padding: 0 20px;
+    padding: 0 10px;
     grid-area: description;
     font-size: 15px;
   }
@@ -137,7 +127,7 @@ dialog {
 @media (max-width: 1024px) and (orientation: landscape) {
   .modal p {
     padding: 0 20px;
-    font-size: 15px;
+    font-size: 14px;
   }
 }
 
