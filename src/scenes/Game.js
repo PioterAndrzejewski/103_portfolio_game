@@ -174,9 +174,15 @@ class Game extends Phaser.Scene {
     );
     document.addEventListener("canPause", () => {
       this.scene.pause();
+      this.hero.keys.up.isDown = false;
+      this.hero.keys.left.isDown = false;
+      this.hero.keys.right.isDown = false;
     });
     document.addEventListener("resume", () => {
       this.scene.resume();
+      this.hero.keys.up.isDown = false;
+      this.hero.keys.left.isDown = false;
+      this.hero.keys.right.isDown = false;
     });
   }
 
