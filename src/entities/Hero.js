@@ -17,6 +17,9 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.body.setDragX(750);
 
     this.keys = scene.cursorKeys;
+    this.keyW = scene.input.keyboard.addKey("W");
+    this.keyA = scene.input.keyboard.addKey("A");
+    this.keyD = scene.input.keyboard.addKey("D");
     this.input = {};
 
     this.setupAnimations();
@@ -140,7 +143,11 @@ class Hero extends Phaser.GameObjects.Sprite {
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
 
-    if (this.canJump && this.keys.up.isDown && !this.justJumped) {
+    if (
+      this.canJump &&
+      (this.keys.up.isDown || this.keyW.isDown) &&
+      !this.justJumped
+    ) {
       this.justJumped = true;
       this.canJump = false;
     }
@@ -148,15 +155,15 @@ class Hero extends Phaser.GameObjects.Sprite {
     if (this.justJumped) {
       this.justJumped = false;
     }
-    if (!this.keys.up.isDown) {
+    if (!this.keys.up.isDown && !this.keyW.isDown) {
       this.canJump = true;
     }
 
-    if (!this.isDead() && this.keys.left.isDown) {
+    if (!this.isDead() && (this.keys.left.isDown || this.keyA.isDown)) {
       this.body.setAccelerationX(-1000);
       this.setFlipX(true);
       this.body.offset.x = 8;
-    } else if (!this.isDead() && this.keys.right.isDown) {
+    } else if (!this.isDead() && (this.keys.right.isDown || this.keyD.isDown)) {
       this.body.setAccelerationX(1000);
       this.setFlipX(false);
       this.body.offset.x = 12;
@@ -165,7 +172,11 @@ class Hero extends Phaser.GameObjects.Sprite {
     }
 
     if (this.moveState.is("jumping") || this.moveState.is("flipping")) {
-      if (!this.keys.up.isDown && this.body.velocity.y < -150) {
+      if (
+        !this.keys.up.isDown &&
+        !this.keyW.isDown &&
+        this.body.velocity.y < -150
+      ) {
         this.body.setVelocityY(-150);
       }
     }

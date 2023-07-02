@@ -1,4 +1,3 @@
-import "./scripts/carousel.js";
 import "./scripts/modals.js";
 import "./style.css";
 

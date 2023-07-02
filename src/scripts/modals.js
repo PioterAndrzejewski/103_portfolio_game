@@ -21,6 +21,5 @@ let dialogCanBeOpened = true;
 const dialogs = document.querySelectorAll("dialog");
 const resumeBtns = document.querySelectorAll(".resume-btn");
 
-document.querySelector("#configurator").showModal();
 document.addEventListener("openModal", openModalHandler);
 resumeBtns.forEach((btn) => btn.addEventListener("click", resumeGame));

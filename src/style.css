@@ -9,21 +9,16 @@ a {
   all: unset;
 }
 
+dialog:not([open]) {
+  display: none;
+}
+
 dialog {
-  max-width: 600px;
-  padding: 0;
-  border: none;
-  background: none;
-}
-
-@media (max-width: 1024px) and (orientation: landscape) {
-  dialog {
-    max-width: 95vw;
-  }
-}
-
-.modal {
-  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 80vw;
+  padding: 30px;
   border: none;
   border-radius: 8px;
   box-shadow: 2px 2px 8px #444444;
@@ -32,20 +27,8 @@ dialog {
   color: #f4ece7;
 }
 
-@media (max-width: 640px) {
-  .modal {
-    padding: 20px;
-  }
-}
-
-@media (max-width: 1024px) and (orientation: landscape) {
-  .modal {
-    display: grid;
-    grid-template-areas: "name description" "img description" "buttons buttons";
-    grid-template-columns: 3fr 2fr;
-    grid-template-rows: 1fr 5fr 1fr;
-    padding: 20px;
-  }
+.modal header {
+  margin-bottom: 20px;
 }
 
 @media (max-height: 425px) and (orientation: landscape) {
@@ -56,152 +39,142 @@ dialog {
 }
 
 .modal h2 {
+  font-size: 22px;
   margin: 0;
-  font-size: 44px;
   font-family: "Josefin Sans", sans-serif;
   font-weight: 100;
   font-style: normal;
-  letter-spacing: 0.125em;
+  letter-spacing: 8px;
   text-align: center;
   text-transform: uppercase;
 }
 
-@media (max-width: 640px) {
-  .modal h2 {
-    font-size: 22px;
-  }
+.modal-content {
+  display: flex;
+  flex-direction: row;
+  align-content: stretch;
 }
 
-@media (max-width: 1024px) and (orientation: landscape) {
-  .modal h2 {
-    font-size: 24px;
-    grid-area: name;
-    align-self: center;
-    justify-self: center;
-  }
-}
-
-@media (max-height: 425px) and (orientation: landscape) {
-  .modal h2 {
-    font-size: 18px;
-  }
-}
-
-.modal .gallery {
+.modal aside {
+  flex-basis: 80%;
   display: flex;
   justify-content: center;
-}
 
-@media (max-width: 1024px) and (orientation: landscape) {
-  .modal .gallery {
-    grid-area: img;
-    justify-self: center;
-    align-self: center;
-  }
 }
 
 .modal img {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 400px;
-  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
-@media (max-width: 640px) {
-  .modal img {
-    max-width: 300px;
-  }
-}
 
-@media (max-width: 1024px) and (orientation: landscape) {
-  .modal img {
-    max-width: 100%;
-    height: auto;
-  }
-}
-
-@media (max-width: 1024px) and (orientation: landscape) {
-  .modal .description {
-    padding: 0 10px;
-    grid-area: description;
-    font-size: 15px;
-  }
+.modal main {
+  flex-basis: 160%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 20px;
 }
 
 .modal p {
-  padding: 0 80px;
+  font-size: 14px;
+  margin: 0;
   line-height: 1.5;
-  font-size: 16px;
   text-align: justify;
   color: #f4ece7;
+  margin-bottom: 10px;
 }
 
-@media (max-width: 640px) {
-  .modal p {
-    padding: 0 40px;
-  }
-}
-
-@media (max-width: 1024px) and (orientation: landscape) {
-  .modal p {
-    padding: 0 20px;
-    font-size: 14px;
-  }
-}
-
-@media (max-height: 425px) and (orientation: landscape) {
-  .modal p {
-    font-size: 13px;
-  }
-}
-
-.modal footer {
+.modal .buttons {
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
-  padding: 0 80px;
-}
-
-@media (max-width: 640px) {
-  .modal footer {
-    flex-direction: column;
-    padding: 0 40px;
-  }
-}
-
-@media (max-width: 1024px) and (orientation: landscape) {
-  .modal footer {
-    grid-area: buttons;
-    max-height: 10vh;
-    align-self: center;
-  }
 }
 
 .modal a,
 .modal button {
+  font-size: 14px;
   font-weight: 600;
   margin-right: 10px;
   padding: 0;
   line-height: 1.5;
-  font-size: 16px;
   text-align: justify;
-  color: #8a7e4e;
+  color: #b9aa6c;
   background-color: #22273300;
   box-shadow: none;
   outline: none;
   border: none;
 }
 
+.modal span {
+  font-size: 10px;
+}
+
 .modal a:hover,
 .modal button:hover {
   cursor: pointer;
-  box-shadow: 0 4px 2px -2px #8a7e4e;
+  box-shadow: 0 4px 2px -2px #c4b372;
 }
 
-.modal a.link-disabled:hover {
+.modal a.img-link:hover {
   box-shadow: none;
-  cursor: unset;
 }
 
-.modal span {
-  font-size: 12px;
+@media (orientation: portrait) and (min-height: 640px) {
+  .modal .modal-content {
+    flex-direction: column;
+  }
+
+  .modal aside {
+    margin-bottom: 20px;
+  }
+
+  .modal main {
+    padding-left: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .modal h2 {
+    font-size: 32px;
+  }
+
+  .modal p {
+    font-size: 18px;
+  }
+
+  .modal a,
+  .modal button {
+    font-size: 20px;
+  }
+
+  .modal span {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1025px) and (min-height: 800px) {
+  dialog {
+    padding: 40px;
+  }
+  .modal {
+    max-width: 500px;
+  }
+
+  .modal-content {
+    flex-direction: column;
+  }
+
+  .modal header {
+    margin-bottom: 30px;
+  }
+
+  .modal aside {
+    margin-bottom: 40px;
+  }
+
+  .modal main {
+    padding-left: 0;
+  }
 }

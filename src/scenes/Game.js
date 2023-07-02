@@ -116,7 +116,6 @@ class Game extends Phaser.Scene {
       this.map.widthInPixels - 10,
       this.map.heightInPixels,
     );
-    this.cameras.main.startFollow(this.hero).setFollowOffset(0, 70);
 
     this.physics.add.collider(
       this.hero,
@@ -131,11 +130,11 @@ class Game extends Phaser.Scene {
     this.joyStick = this.plugins
       .get("rexvirtualjoystickplugin")
       .add(this, {
-        x: 150,
-        y: 450,
+        x: 250,
+        y: 420,
         radius: 150,
-        base: this.add.circle(0, 0, 120, 0x888888),
-        thumb: this.add.circle(0, 0, 70, 0xcccccc),
+        base: this.add.circle(0, 0, 70, 0x888888),
+        thumb: this.add.circle(0, 0, 40, 0xcccccc),
         dir: "8dir",
         enable: true,
       })
@@ -144,6 +143,10 @@ class Game extends Phaser.Scene {
     this.joyStick.base.setAlpha(0.5);
     this.joyStick.thumb.setAlpha(0.5);
     this.dumpJoyStickState();
+
+    this.cameras.main.startFollow(this.hero);
+    this.cameras.main.setFollowOffset(0, 100);
+    this.cameras.main.setZoom(1.1);
   }
 
   dumpJoyStickState() {
@@ -172,17 +175,16 @@ class Game extends Phaser.Scene {
     document.dispatchEvent(
       new CustomEvent("openModal", { detail: obj.linkTo }),
     );
-    document.addEventListener("canPause", () => {
-      this.scene.pause();
-      this.hero.keys.up.isDown = false;
-      this.hero.keys.left.isDown = false;
-      this.hero.keys.right.isDown = false;
-    });
-    document.addEventListener("resume", () => {
-      this.resumeGame();
-    });
 
-    document.addEventListener("keydown", (e) => {
+    this.pauseListener = document.addEventListener("canPause", () => {
+      this.scene.pause();
+      this.resetKeys();
+    });
+    this.resumeListener = document.addEventListener("resume", () => {
+      this.resumeGame();
+      this.resetKeys();
+    });
+    this.keydownListener = document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         this.resumeGame();
       }
@@ -191,9 +193,18 @@ class Game extends Phaser.Scene {
 
   resumeGame() {
     this.scene.resume();
+    document.removeEventListener("canPause", this.pauseListener);
+    document.removeEventListener("resume", this.resumeListener);
+    document.removeEventListener("keydown", this.keydownListener);
+  }
+
+  resetKeys() {
     this.hero.keys.up.isDown = false;
     this.hero.keys.left.isDown = false;
     this.hero.keys.right.isDown = false;
+    this.hero.keyW.isDown = false;
+    this.hero.keyA.isDown = false;
+    this.hero.keyD.isDown = false;
   }
 
   addHero() {
@@ -240,26 +251,11 @@ class Game extends Phaser.Scene {
     );
     this.physics.world.setBoundsCollision(true, true, false, true);
 
-    this.spikeGroup = this.physics.add.group({
-      immovable: true,
-      allowGravity: false,
-    });
-
     this.linkGroup = [];
 
     const objectLayer = this.map
       .getObjectLayer("Objects")
       .objects.forEach((obj) => {
-        if (obj.gid === 7) {
-          const newSpike = this.spikeGroup.create(
-            obj.x,
-            obj.y,
-            "world-1-sheet",
-            obj.gid - 1,
-          );
-          newSpike.setOrigin(0, 1);
-          newSpike.setSize(obj.width - 10, obj.height - 10);
-        }
         if (obj.type === "link") {
           const linkObject = this.add.rectangle(
             obj.x + obj.width / 2,
