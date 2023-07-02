@@ -10,7 +10,7 @@
     "file.lastUsedOpenFilter": "Wszystkie pliki (*)",
     "fileStates": {
         "": {
-            "scaleInDock": 1
+            "scaleInDock": 0.015625
         },
         "#MrCutout.com - tree-0251-small": {
             "dynamicWrapping": true
@@ -36,7 +36,8 @@
             "scaleInDock": 0.75
         },
         "2.tmx#bg-cave": {
-            "scaleInDock": 0.33
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
         },
         "2.tmx#bg-sheet": {
             "scaleInDock": 1
@@ -71,6 +72,7 @@
         }
     },
     "last.exportedFilePath": "H:/programowanie/103_portfolio_game/assets/tilesets",
+    "last.externalTilesetPath": "H:/programowanie/103_portfolio_game/assets/tilesets",
     "last.imagePath": "H:/programowanie/103_portfolio_game/assets/tilesets",
     "map.height": 14,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
@@ -84,6 +86,7 @@
         "2.tmx"
     ],
     "tileset.embedInMap": true,
+    "tileset.lastUsedFilter": "Wszystkie pliki (*)",
     "tileset.margin": 0,
     "tileset.spacing": 0,
     "tileset.type": 0
