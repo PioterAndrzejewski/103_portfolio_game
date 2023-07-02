@@ -4,6 +4,7 @@ const openModalHandler = (e) => {
   }
   document.dispatchEvent(new Event("canPause"));
   document.querySelector("#" + e.detail).showModal();
+  // resumeBtns.forEach(bton => btn.focus())
 };
 
 const resumeGame = () => {
@@ -21,6 +22,6 @@ let dialogCanBeOpened = true;
 const dialogs = document.querySelectorAll("dialog");
 const resumeBtns = document.querySelectorAll(".resume-btn");
 
-document.querySelector("#configurator").showModal();
 document.addEventListener("openModal", openModalHandler);
+document.querySelector("#configurator").showModal();
 resumeBtns.forEach((btn) => btn.addEventListener("click", resumeGame));

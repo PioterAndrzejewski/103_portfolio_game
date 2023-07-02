@@ -131,7 +131,7 @@ class Game extends Phaser.Scene {
       .get("rexvirtualjoystickplugin")
       .add(this, {
         x: 250,
-        y: 450,
+        y: 420,
         radius: 150,
         base: this.add.circle(0, 0, 70, 0x888888),
         thumb: this.add.circle(0, 0, 40, 0xcccccc),
@@ -202,6 +202,9 @@ class Game extends Phaser.Scene {
     this.hero.keys.up.isDown = false;
     this.hero.keys.left.isDown = false;
     this.hero.keys.right.isDown = false;
+    this.hero.keyW.isDown = false;
+    this.hero.keyA.isDown = false;
+    this.hero.keyD.isDown = false;
   }
 
   addHero() {
