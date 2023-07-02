@@ -31,6 +31,13 @@ dialog {
   margin-bottom: 20px;
 }
 
+@media (max-height: 425px) and (orientation: landscape) {
+  .modal {
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+  }
+}
+
 .modal h2 {
   font-size: 22px;
   margin: 0;
@@ -52,6 +59,7 @@ dialog {
   flex-basis: 80%;
   display: flex;
   justify-content: center;
+
 }
 
 .modal img {
@@ -59,6 +67,7 @@ dialog {
   max-height: 100%;
   object-fit: contain;
 }
+
 
 .modal main {
   flex-basis: 160%;
