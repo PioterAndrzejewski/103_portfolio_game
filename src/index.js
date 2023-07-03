@@ -10,7 +10,6 @@ new Phaser.Game(
   }),
 );
 
-// This hides the address bar:
 window.addEventListener("load", function () {
   setTimeout(function () {
     window.scrollTo(0, 1);
