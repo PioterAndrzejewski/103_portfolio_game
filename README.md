@@ -8,7 +8,7 @@
 
 <br />
 <div align="center">
-<a href="https://pioterandrzejewski.github.io/103_portfolio_game/">View Demo</a> <br>
+<a href="https://pioterandrzejewski.github.io/portfolio_game/">View Demo</a> <br>
   <p align="center">
 Interactive portfolio website made in the style of a platform game.
     <br />
