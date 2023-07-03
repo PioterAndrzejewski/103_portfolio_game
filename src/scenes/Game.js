@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import Hero from "../entities/Hero";
+import { isMobileVertical } from "../config";
 
 class Game extends Phaser.Scene {
   constructor() {
@@ -130,9 +131,9 @@ class Game extends Phaser.Scene {
     this.joyStick = this.plugins
       .get("rexvirtualjoystickplugin")
       .add(this, {
-        x: 250,
-        y: 420,
-        radius: 150,
+        x: 200,
+        y: isMobileVertical ? window.innerHeight - 150 : 420,
+        radius: 120,
         base: this.add.circle(0, 0, 70, 0x888888),
         thumb: this.add.circle(0, 0, 40, 0xcccccc),
         dir: "8dir",
@@ -145,7 +146,7 @@ class Game extends Phaser.Scene {
     this.dumpJoyStickState();
 
     this.cameras.main.startFollow(this.hero);
-    this.cameras.main.setFollowOffset(0, 100);
+    this.cameras.main.setFollowOffset(0, 80);
     this.cameras.main.setZoom(1.1);
   }
 
@@ -239,7 +240,7 @@ class Game extends Phaser.Scene {
     );
 
     bgClouds.setScrollFactor(0.8);
-    bgLayer.setScrollFactor(0.9);
+    // bgLayer.setScrollFactor(0.95);
 
     groundLayer.setCollision([1, 2], true);
 

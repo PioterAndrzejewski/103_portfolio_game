@@ -170,11 +170,9 @@ dialog {
     }
   }
 
-  @media (min-width: 1025px) and (min-height: 800px) {
-    dialog {
-      padding: 40px;
-    }
+  @media (min-width: 1025px) and (min-height: 700px) {
     .modal {
+      padding: 40px;
       max-width: 500px;
     }
 
