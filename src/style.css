@@ -39,7 +39,7 @@ dialog {
 }
 
 .modal h2 {
-  font-size: 22px;
+  font-size: 18px;
   margin: 0;
   font-family: "Josefin Sans", sans-serif;
   font-weight: 100;
@@ -78,7 +78,7 @@ dialog {
 }
 
 .modal p {
-  font-size: 14px;
+  font-size: 12px;
   margin: 0;
   line-height: 1.5;
   text-align: justify;
@@ -94,7 +94,7 @@ dialog {
 
 .modal a,
 .modal button {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   margin-right: 10px;
   padding: 0;
