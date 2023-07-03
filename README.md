@@ -1,33 +1,63 @@
-# Phaser 3 + ES6 + Webpack Boilerplate
-A boilerplate project for creating games with Phaser3, ES6 and Webpack.
 
-## Setup
 
-### Environment
-Requires node.js and npm to be installed: https://nodejs.org/en/
+<!-- PROJECT LOGO -->
 
-### Download repo
-From your workspace directory run:
+![image](https://github.com/PioterAndrzejewski/103_portfolio_game/assets/109315248/6126c316-1443-4f55-a4e1-072826f054b6)
 
-`git clone https://github.com/jedhastwell/phaser3-es6-webpack-boilerplate.git`
 
-### Install Dependencies
-From the project directory run:
 
-`npm install`
+<br />
+<div align="center">
+<a href="https://pioterandrzejewski.github.io/103_portfolio_game/">View Demo</a> <br>
+  <p align="center">
+Interactive portfolio website made in the style of a platform game.
+    <br />
+    <br />
+  </p>
+</div>
 
-## Usage
+## Getting started
 
-### Development Server
-Starts a development server that will automatically refresh the page as you make changes. Once started, navigate to http://localhost:8080 in your browser.
+After cloning the repository and installing dependencies run the app using npm start command. 
 
-To start the server run:
+  ```sh
+  $ git clone https://github.com/PioterAndrzejewski/103_portfolio_game.git
+  $ cd 103_portfolio_game
+  $ npm i
+  $ npm start
+  ```
+Now you're ready to test the app in your browser on localhost:8080
 
-`npm run start`
+### Built With
 
-### Distribution
-Bundles and minimises scripts and outputs them along with a copy of the assets/ folder to output directory dist/.
+- Javascript
+- Phaser
+- HTML
+- CSS
 
-To build for distribution run:
+## About The Project
 
-`npm run build`
+The app consists of several elements:
+
+![image](https://github.com/PioterAndrzejewski/103_portfolio_game/assets/109315248/9483053e-d706-48ca-84e9-c38c06604bc3)
+
+
+- [ ] Game logics - created with Phaser. Main features
+  - [ ] created 2d map based on "Tiled" editor,
+  - [ ] created the Hero, movement and jumping logics,
+  - [ ] created camera that is following the Hero,
+  - [ ] implemented virtual joystick that is simulating arrow keys,
+
+- [ ] Assets - All 2d assets are created by me. 
+
+![image](https://github.com/PioterAndrzejewski/103_portfolio_game/assets/109315248/208640c5-799a-408d-9623-a8ffd39a2a23)
+
+
+- [ ] Dialog boxes - when user hits special objects (project names / CV / contact details) an event is thrown, the game stops and HTML dialog objects are opened with additional info. 
+
+![image](https://github.com/PioterAndrzejewski/103_portfolio_game/assets/109315248/67d2544f-f919-4502-8e8b-2afd781b6b78)
+
+
+
+ ## To-do
+The application is my portfolio and will be updated with each new project I make.
