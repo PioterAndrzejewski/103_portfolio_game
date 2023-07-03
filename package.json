@@ -21,7 +21,8 @@
     "raw-loader": "^2.0.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "gh-pages": "^5.0.0"
   },
   "dependencies": {
     "css-loader": "^5.2.7",
