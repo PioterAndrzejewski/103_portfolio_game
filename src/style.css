@@ -31,15 +31,8 @@ dialog {
   margin-bottom: 20px;
 }
 
-@media (max-height: 425px) and (orientation: landscape) {
-  .modal {
-    grid-template-columns: 1fr 1fr;
-    padding: 10px;
-  }
-}
-
 .modal h2 {
-  font-size: 18px;
+  font-size: 16px;
   margin: 0;
   font-family: "Josefin Sans", sans-serif;
   font-weight: 100;
@@ -52,14 +45,10 @@ dialog {
 .modal-content {
   display: flex;
   flex-direction: row;
-  align-content: stretch;
 }
 
 .modal aside {
-  flex-basis: 80%;
-  display: flex;
-  justify-content: center;
-
+  display: none;
 }
 
 .modal img {
@@ -68,13 +57,12 @@ dialog {
   object-fit: contain;
 }
 
-
 .modal main {
-  flex-basis: 160%;
+  flex-grow: 1;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-left: 20px;
 }
 
 .modal p {
@@ -87,7 +75,7 @@ dialog {
 }
 
 .modal .buttons {
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
 }
@@ -121,60 +109,97 @@ dialog {
   box-shadow: none;
 }
 
-@media (orientation: portrait) and (min-height: 640px) {
-  .modal .modal-content {
-    flex-direction: column;
+@media (min-height: 325px) {
+  .modal h2 {
+    font-size: 22px;
   }
-
   .modal aside {
-    margin-bottom: 20px;
+    flex-shrink: 1;
+    flex-basis: 30%;
+    display: flex;
+    justify-content: center;
   }
 
   .modal main {
-    padding-left: 0;
-  }
-}
-
-@media (min-width: 768px) {
-  .modal h2 {
-    font-size: 32px;
+    padding-left: 20px;
   }
 
   .modal p {
-    font-size: 18px;
+    font-size: 14px;
   }
 
   .modal a,
   .modal button {
-    font-size: 20px;
+    font-size: 14px;
   }
 
-  .modal span {
-    font-size: 16px;
-  }
-}
-
-@media (min-width: 1025px) and (min-height: 800px) {
-  dialog {
-    padding: 40px;
-  }
-  .modal {
-    max-width: 500px;
+  .modal .buttons {
+    margin-top: 20px;
   }
 
-  .modal-content {
-    flex-direction: column;
+  @media (orientation: portrait) and (min-height: 640px) {
+    .modal .modal-content {
+      flex-direction: column;
+    }
+
+    .modal aside {
+      margin-bottom: 20px;
+    }
+
+    .modal main {
+      padding-left: 0;
+    }
   }
 
-  .modal header {
-    margin-bottom: 30px;
+  @media (orientation: portrait) and (min-width: 768px) {
+    .modal h2 {
+      font-size: 32px;
+    }
+
+    .modal p {
+      font-size: 18px;
+    }
+
+    .modal a,
+    .modal button {
+      font-size: 20px;
+    }
+
+    .modal span {
+      font-size: 16px;
+    }
   }
 
-  .modal aside {
-    margin-bottom: 40px;
-  }
+  @media (min-width: 1025px) and (min-height: 800px) {
+    dialog {
+      padding: 40px;
+    }
+    .modal {
+      max-width: 500px;
+    }
 
-  .modal main {
-    padding-left: 0;
+    .modal h2 {
+      font-size: 24px;
+    }
+
+    .modal-content {
+      flex-direction: column;
+    }
+
+    .modal p {
+      font-size: 16px;
+    }
+
+    .modal header {
+      margin-bottom: 30px;
+    }
+
+    .modal aside {
+      margin-bottom: 40px;
+    }
+
+    .modal main {
+      padding-left: 0;
+    }
   }
 }
