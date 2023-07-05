@@ -25,18 +25,18 @@
             "dynamicWrapping": false
         },
         "2.tmx": {
-            "scale": 1,
-            "selectedLayer": 2,
+            "scale": 0.33,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 604,
-                "y": 303
+                "x": 1187.8787878787878,
+                "y": 239.39393939393938
             }
         },
         "2.tmx#Background-cloud": {
             "scaleInDock": 0.75
         },
         "2.tmx#bg-cave": {
-            "scaleInDock": 0.03125,
+            "scaleInDock": 0.015625,
             "scaleInEditor": 1
         },
         "2.tmx#bg-sheet": {
