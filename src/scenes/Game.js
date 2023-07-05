@@ -209,8 +209,7 @@ class Game extends Phaser.Scene {
   }
 
   addHero() {
-    // this.hero = new Hero(this, 420, 500);
-    this.hero = new Hero(this, 1600, 750);
+    this.hero = new Hero(this, 420, 500);
 
     this.physics.add.collider(
       this.hero,
