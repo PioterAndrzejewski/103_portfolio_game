@@ -4,6 +4,16 @@ const openModalHandler = (e) => {
   }
   document.dispatchEvent(new Event("canPause"));
   document.querySelector("#" + e.detail).showModal();
+  document.addEventListener("click", handleModalClick);
+};
+
+const handleModalClick = (e) => {
+  const dialogs = document.querySelectorAll("dialog");
+  dialogs.forEach((dialog) => {
+    if (e.target === dialog) {
+      resumeGame();
+    }
+  });
 };
 
 const resumeGame = () => {
@@ -17,6 +27,7 @@ const resumeGame = () => {
 };
 
 let dialogCanBeOpened = true;
+let dialog;
 
 const dialogs = document.querySelectorAll("dialog");
 const resumeBtns = document.querySelectorAll(".resume-btn");
