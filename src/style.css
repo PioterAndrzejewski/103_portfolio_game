@@ -35,7 +35,7 @@ dialog {
   font-size: 16px;
   margin: 0;
   font-family: "Josefin Sans", sans-serif;
-  font-weight: 100;
+  font-weight: 200;
   font-style: normal;
   letter-spacing: 4px;
   text-align: center;
@@ -72,6 +72,11 @@ dialog {
   text-align: justify;
   color: #f4ece7;
   margin-bottom: 10px;
+}
+
+.modal p.technologies {
+  color: #f4ece788;
+  font-weight: 100;
 }
 
 .modal .buttons {
