@@ -26,10 +26,10 @@
         },
         "2.tmx": {
             "scale": 1,
-            "selectedLayer": 2,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 1476.5,
-                "y": 612
+                "x": 1574.5,
+                "y": 614
             }
         },
         "2.tmx#Background-cloud": {
